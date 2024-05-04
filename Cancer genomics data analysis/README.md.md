@@ -15,7 +15,7 @@ wget "https://gear-genomics.embl.de/data/.exercise/wt.r2.fq.gz"
 ```
 
 unzipping data files
-``
+
 ```bash
 gunzip hg19.fa.gz tu.r1.fq.gz tu.r2.fq.gz wt.r1.fq.gz wt.r2.fq.gz
 ```
