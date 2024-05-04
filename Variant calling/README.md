@@ -3,7 +3,7 @@
 ### Data preparation
 
 unzip data files
-``
+
 ```bash
 gunzip chr7.fa.gz
 gunzip R1.fastq.gz
