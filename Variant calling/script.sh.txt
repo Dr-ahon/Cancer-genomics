@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# download data
+wget "https://gear-genomics.embl.de/data/.exercise/"
+wget "https://gear-genomics.embl.de/data/.slides/R1.fastq.gz"
+wget "https://gear-genomics.embl.de/data/.slides/R2.fastq.gz"
+
+# unzip data files
+gunzip chr7.fa.gz
+gunzip R1.fastq.gz
+gunzip R2.fastq.gz
+
+# index reference data
+ ./bwa index -p chr7 chr7.fa
+
+# align reads to the reference 
+./bwa mem -t 12 reference_data/chr7 raw_data/R1.fastq raw_data/R2.fastq >results/bwa/R.sam
+
+# convert SAM to BAM
+samtools view -S -b R.sam > R.bam
+
+# sort the data
+samtools sort -o R.sorted.bam R.bam
+
+# variant calling
+bcftools mpileup -Ou -f ../../reference_data/chr7.fa R.sorted.bam | bcftools call -mv -Ov -o calls.vcf
